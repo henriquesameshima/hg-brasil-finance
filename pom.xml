@@ -29,6 +29,14 @@
 		</plugins>
 	</build>
 
+	  <distributionManagement>
+	    <repository>
+	      <id>github</id>
+	      <name>GitHub Packages</name>
+	      <url>https://maven.pkg.github.com/henriquesameshima/hg-brasil-finance</url>
+	    </repository>
+	  </distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>

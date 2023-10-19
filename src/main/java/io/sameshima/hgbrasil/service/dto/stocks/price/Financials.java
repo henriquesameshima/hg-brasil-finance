@@ -1,4 +1,4 @@
-package io.sameshima.hgbrasil.service.dto.stocks;
+package io.sameshima.hgbrasil.service.dto.stocks.price;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

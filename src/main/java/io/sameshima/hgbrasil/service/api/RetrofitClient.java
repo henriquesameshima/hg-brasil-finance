@@ -15,6 +15,8 @@ public final class RetrofitClient {
 	private RetrofitClient() {
 	}
 
+	private static final int TEN_MB_CACHE_SIZE = 10 * 1024 * 1024;
+
 	private static final String BASE_URL = "https://api.hgbrasil.com/finance/";
 
 	private static Retrofit retrofit = null;
@@ -34,7 +36,7 @@ public final class RetrofitClient {
 	public static HGBrasilService getApiService(final CacheConfig cacheConfig) {
 		if (retrofit == null) {
 			File httpCacheDirectory = new File(System.getProperty("java.io.tmpdir"), "hg-brasil-cache");
-			int cacheSize = 10 * 1024 * 1024;
+			int cacheSize = TEN_MB_CACHE_SIZE;
 			Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
 			OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();

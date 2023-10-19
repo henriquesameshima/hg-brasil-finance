@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Generated
-public @Getter @ToString class StockInfo extends StockOrError {
+public @Getter @ToString class StockInfo {
 
 	@JsonProperty("kind")
 	private String kind;
@@ -62,5 +62,5 @@ public @Getter @ToString class StockInfo extends StockOrError {
 
 	@JsonProperty("updated_at")
 	private String updatedAt;
-	
+
 }

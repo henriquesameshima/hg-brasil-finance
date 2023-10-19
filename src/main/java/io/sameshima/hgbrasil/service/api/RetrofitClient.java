@@ -3,6 +3,14 @@ package io.sameshima.hgbrasil.service.api;
 import java.io.File;
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import io.sameshima.hgbrasil.service.dto.stocks.dividends.DividendsInfo;
+import io.sameshima.hgbrasil.service.dto.stocks.dividends.DividendsOrError;
+import io.sameshima.hgbrasil.service.dto.stocks.price.StockInfo;
+import io.sameshima.hgbrasil.service.dto.stocks.price.StockOrError;
+import io.sameshima.hgbrasil.utils.DeserializadorDefault;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -46,10 +54,26 @@ public final class RetrofitClient {
 						.cache(cache);
 			}
 
-			retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(JacksonConverterFactory.create())
+			retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+					.addConverterFactory(JacksonConverterFactory.create(configureMapper()))
 					.client(okHttpClientBuilder.build()).build();
 		}
 		return retrofit.create(HGBrasilService.class);
+	}
+
+	private static ObjectMapper configureMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		SimpleModule module = createModuleWithDeserializers();
+		mapper.registerModule(module);
+		return mapper;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static SimpleModule createModuleWithDeserializers() {
+		SimpleModule module = new SimpleModule();
+		module.addDeserializer(StockOrError.class, new DeserializadorDefault(StockInfo.class));
+		module.addDeserializer(DividendsOrError.class, new DeserializadorDefault(DividendsInfo.class));
+		return module;
 	}
 
 	public static HGBrasilService getApiService() {

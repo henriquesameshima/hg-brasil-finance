@@ -6,7 +6,7 @@ import java.util.Map;
 import io.sameshima.hgbrasil.service.StockPriceService;
 import io.sameshima.hgbrasil.service.api.CallbackResponse;
 import io.sameshima.hgbrasil.service.dto.DefaultResponse;
-import io.sameshima.hgbrasil.service.dto.stocks.StockInfo;
+import io.sameshima.hgbrasil.service.dto.stocks.price.StockOrError;
 import io.sameshima.hgbrasil.service.exceptions.SynchronousException;
 
 /**
@@ -32,7 +32,7 @@ public class StockPricesFacade {
 	 * @param callback the callback
 	 * @return the high stock prices async
 	 */
-	public void getHighStockPricesAsync(CallbackResponse<Map<String, StockInfo>> callback) {
+	public void getHighStockPricesAsync(CallbackResponse<Map<String, StockOrError>> callback) {
 		stockPriceService.fetchDataAsync(callback, "get-high");
 	}
 
@@ -42,7 +42,7 @@ public class StockPricesFacade {
 	 * @param callback the callback
 	 * @return the low stock prices async
 	 */
-	public void getLowStockPricesAsync(CallbackResponse<Map<String, StockInfo>> callback) {
+	public void getLowStockPricesAsync(CallbackResponse<Map<String, StockOrError>> callback) {
 		stockPriceService.fetchDataAsync(callback, "get-low");
 	}
 
@@ -53,7 +53,7 @@ public class StockPricesFacade {
 	 * @param callback the callback
 	 * @return the stock prices async
 	 */
-	public void getStockPricesAsync(final String symbol, CallbackResponse<Map<String, StockInfo>> callback) {
+	public void getStockPricesAsync(final String symbol, CallbackResponse<Map<String, StockOrError>> callback) {
 		stockPriceService.fetchDataAsync(callback, symbol);
 	}
 
@@ -64,7 +64,7 @@ public class StockPricesFacade {
 	 * @param callback the callback
 	 * @return the stock prices async
 	 */
-	public void getStockPricesAsync(final List<String> symbols, CallbackResponse<Map<String, StockInfo>> callback) {
+	public void getStockPricesAsync(final List<String> symbols, CallbackResponse<Map<String, StockOrError>> callback) {
 		getStockPricesAsync(String.join(",", symbols), callback);
 	}
 
@@ -74,7 +74,7 @@ public class StockPricesFacade {
 	 * @return the high stock prices
 	 * @throws SynchronousException the synchronous exception
 	 */
-	public DefaultResponse<Map<String, StockInfo>> getHighStockPrices() throws SynchronousException {
+	public DefaultResponse<Map<String, StockOrError>> getHighStockPrices() throws SynchronousException {
 		return stockPriceService.fetchData("get-high");
 	}
 
@@ -84,7 +84,7 @@ public class StockPricesFacade {
 	 * @return the low stock prices
 	 * @throws SynchronousException the synchronous exception
 	 */
-	public DefaultResponse<Map<String, StockInfo>> getLowStockPrices() throws SynchronousException {
+	public DefaultResponse<Map<String, StockOrError>> getLowStockPrices() throws SynchronousException {
 		return stockPriceService.fetchData("get-low");
 	}
 
@@ -95,7 +95,7 @@ public class StockPricesFacade {
 	 * @return the stock prices
 	 * @throws SynchronousException the synchronous exception
 	 */
-	public DefaultResponse<Map<String, StockInfo>> getStockPrices(final String symbol) throws SynchronousException {
+	public DefaultResponse<Map<String, StockOrError>> getStockPrices(final String symbol) throws SynchronousException {
 		return stockPriceService.fetchData(symbol);
 	}
 
@@ -106,7 +106,7 @@ public class StockPricesFacade {
 	 * @return the stock prices
 	 * @throws SynchronousException the synchronous exception
 	 */
-	public DefaultResponse<Map<String, StockInfo>> getStockPrices(final List<String> symbols)
+	public DefaultResponse<Map<String, StockOrError>> getStockPrices(final List<String> symbols)
 			throws SynchronousException {
 		return getStockPrices(String.join(",", symbols));
 	}

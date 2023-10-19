@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.sameshima.hgbrasil.service.dto.DefaultResponse;
-import io.sameshima.hgbrasil.service.dto.stocks.StockInfo;
+import io.sameshima.hgbrasil.service.dto.stocks.dividends.DividendsOrError;
+import io.sameshima.hgbrasil.service.dto.stocks.price.StockOrError;
 import io.sameshima.hgbrasil.service.dto.taxes.Taxes;
 import lombok.Generated;
 import retrofit2.Call;
@@ -18,7 +19,10 @@ public interface HGBrasilService {
 	Call<DefaultResponse<List<Taxes>>> getBrazilianTaxes(@Query("key") final String key);
 	
 	@GET("stock_price")
-	Call<DefaultResponse<Map<String, StockInfo>>> getStocksInfo(@Query("key") final String key, @Query("symbol") final String symbol);
+	Call<DefaultResponse<Map<String, StockOrError>>> getStocksPrice(@Query("key") final String key, @Query("symbol") final String symbol);
+	
+	@GET("stock_dividends")
+	Call<DefaultResponse<Map<String, DividendsOrError>>> getStocksDividends(@Query("key") final String key, @Query("symbol") final String symbol);
 	
 	@GET("ticker_list")
 	Call<DefaultResponse<List<String>>> getAllTickers(@Query("key") final String key);

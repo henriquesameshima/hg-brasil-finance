@@ -1,11 +1,13 @@
 package io.sameshima.hgbrasil;
 
+import io.sameshima.hgbrasil.service.StockDividendsService;
 import io.sameshima.hgbrasil.service.StockPriceService;
 import io.sameshima.hgbrasil.service.TaxesService;
 import io.sameshima.hgbrasil.service.TickerListService;
 import io.sameshima.hgbrasil.service.api.CacheConfig;
 import io.sameshima.hgbrasil.service.api.HGBrasilService;
 import io.sameshima.hgbrasil.service.api.RetrofitClient;
+import io.sameshima.hgbrasil.service.facades.StockDividendsFacade;
 import io.sameshima.hgbrasil.service.facades.StockPricesFacade;
 import io.sameshima.hgbrasil.service.facades.TaxesFacade;
 import io.sameshima.hgbrasil.service.facades.TickersFacade;
@@ -21,6 +23,7 @@ public final class HGFinance {
 	private final TickersFacade tickersFacade;
 	private final TaxesFacade taxesFacade;
 	private final StockPricesFacade stockPricesFacade;
+	private final StockDividendsFacade stockDividendsFacade;
 
 	/**
 	 * Instantiates a new HG finance.
@@ -38,10 +41,12 @@ public final class HGFinance {
 	 * @param cacheConfig the cache config
 	 */
 	public HGFinance(final String chaveAPI, final CacheConfig cacheConfig) {
-		final HGBrasilService service = (cacheConfig != null) ? RetrofitClient.getApiService(cacheConfig) : RetrofitClient.getApiService();
+		final HGBrasilService service = (cacheConfig != null) ? RetrofitClient.getApiService(cacheConfig)
+				: RetrofitClient.getApiService();
 		this.tickersFacade = new TickersFacade(new TickerListService(service, chaveAPI));
 		this.taxesFacade = new TaxesFacade(new TaxesService(service, chaveAPI));
 		this.stockPricesFacade = new StockPricesFacade(new StockPriceService(service, chaveAPI));
+		this.stockDividendsFacade = new StockDividendsFacade(new StockDividendsService(service, chaveAPI));
 	}
 
 	/**
@@ -69,5 +74,14 @@ public final class HGFinance {
 	 */
 	public StockPricesFacade getStockPricesServices() {
 		return stockPricesFacade;
+	}
+
+	/**
+	 * Gets the stock dividends services.
+	 *
+	 * @return the stock dividends services
+	 */
+	public StockDividendsFacade getStockDividendsServices() {
+		return stockDividendsFacade;
 	}
 }

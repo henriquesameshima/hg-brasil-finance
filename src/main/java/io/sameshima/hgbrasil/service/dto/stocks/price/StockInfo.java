@@ -1,4 +1,4 @@
-package io.sameshima.hgbrasil.service.dto.stocks;
+package io.sameshima.hgbrasil.service.dto.stocks.price;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -62,11 +62,5 @@ public @Getter @ToString class StockInfo {
 
 	@JsonProperty("updated_at")
 	private String updatedAt;
-
-	@JsonProperty("error")
-	private boolean error;
-
-	@JsonProperty("message")
-	private String message = "";
 
 }

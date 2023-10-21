@@ -23,13 +23,29 @@ public class IndiceBovespaFacade {
 	public DefaultResponse<List<IbovespaInfo>> getIbovespaDetail(final Integer daysAgo) throws SynchronousException {
 		return indiceBovespaDetailService.fetchData(daysAgo);
 	}
-	
+
+	public DefaultResponse<List<IbovespaInfo>> getIbovespaDetail(final String startDate, final String endDate) throws SynchronousException {
+		return indiceBovespaDetailService.fetchData(startDate, endDate);
+	}
+
+	public DefaultResponse<List<IbovespaInfo>> getIbovespaDetail(final String date) throws SynchronousException {
+		return indiceBovespaDetailService.fetchData(date);
+	}
+
 	public void getIbovespaDetailAsync(final Integer daysAgo, final CallbackResponse<List<IbovespaInfo>> callback) {
 		indiceBovespaDetailService.fetchDataAsync(callback, daysAgo);
 	}
-	
+
 	public void getIbovespaDetailAsync(final CallbackResponse<List<IbovespaInfo>> callback) {
 		getIbovespaDetailAsync(0, callback);
+	}
+
+	public void getIbovespaDetailAsync(final String startDate, final String endDate, final CallbackResponse<List<IbovespaInfo>> callback) {
+		indiceBovespaDetailService.fetchDataAsync(callback, startDate, endDate);
+	}
+
+	public void getIbovespaDetailAsync(final String date, final CallbackResponse<List<IbovespaInfo>> callback) {
+		indiceBovespaDetailService.fetchDataAsync(callback, date);
 	}
 
 }

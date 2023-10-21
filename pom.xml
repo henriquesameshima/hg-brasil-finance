@@ -7,8 +7,7 @@
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 	<name>HG Brasil - Finance Library</name>
-	<description>Biblioteca para as funcionalidades de finanças da HG Brasil -
-		API</description>
+	<description>Biblioteca para as funcionalidades de finanças da HG Brasil - API</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

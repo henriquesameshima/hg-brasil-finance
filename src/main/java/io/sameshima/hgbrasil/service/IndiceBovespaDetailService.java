@@ -1,7 +1,6 @@
 package io.sameshima.hgbrasil.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import io.sameshima.hgbrasil.service.api.AbstractService;
 import io.sameshima.hgbrasil.service.api.HGBrasilService;
@@ -17,9 +16,18 @@ public class IndiceBovespaDetailService extends AbstractService<List<IbovespaInf
 
 	@Override
 	public Call<DefaultResponse<List<IbovespaInfo>>> makeServiceCall(Object... params) {
-		final Integer daysAgo = Optional.ofNullable(params).filter(p -> p.length > 0 && p[0] instanceof Integer)
-				.map(p -> (Integer) p[0]).orElse(0);
-		return service.getIbovespaDetail(chaveAPI, daysAgo);
+		if (params.length == 1 && params[0] instanceof String) {
+			String date = (String) params[0];
+			return service.getIbovespaDetail(chaveAPI, date);
+		} else if (params.length == 2 && params[0] instanceof String && params[1] instanceof String) {
+			String startDate = (String) params[0];
+			String endDate = (String) params[1];
+			return service.getIbovespaDetail(chaveAPI, startDate, endDate);
+		} else if (params.length == 1 && params[0] instanceof Integer) {
+			Integer days = (Integer) params[0];
+			return service.getIbovespaDetail(chaveAPI, days);
+		}
+		throw new IllegalArgumentException("Invalid parameters.");
 	}
 
 }

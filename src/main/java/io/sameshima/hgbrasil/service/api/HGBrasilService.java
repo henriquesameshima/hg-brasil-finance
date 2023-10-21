@@ -18,17 +18,28 @@ public interface HGBrasilService {
 
 	@GET("taxes")
 	Call<DefaultResponse<List<Taxes>>> getBrazilianTaxes(@Query("key") final String key);
-	
+
 	@GET("stock_price")
-	Call<DefaultResponse<Map<String, StockOrError>>> getStocksPrice(@Query("key") final String key, @Query("symbol") final String symbol);
-	
+	Call<DefaultResponse<Map<String, StockOrError>>> getStocksPrice(@Query("key") final String key,
+			@Query("symbol") final String symbol);
+
 	@GET("stock_dividends")
-	Call<DefaultResponse<Map<String, DividendsOrError>>> getStocksDividends(@Query("key") final String key, @Query("symbol") final String symbol);
-	
+	Call<DefaultResponse<Map<String, DividendsOrError>>> getStocksDividends(@Query("key") final String key,
+			@Query("symbol") final String symbol);
+
 	@GET("ticker_list")
 	Call<DefaultResponse<List<String>>> getAllTickers(@Query("key") final String key);
-	
+
 	@GET("ibovespa")
-	Call<DefaultResponse<List<IbovespaInfo>>> getIbovespaDetail(@Query("key") final String key, @Query("days_ago") final Integer daysAgo);
-	
+	Call<DefaultResponse<List<IbovespaInfo>>> getIbovespaDetail(@Query("key") final String key,
+			@Query("days_ago") final Integer daysAgo);
+
+	@GET("ibovespa")
+	Call<DefaultResponse<List<IbovespaInfo>>> getIbovespaDetail(@Query("key") final String key,
+			@Query("start_date") final String startDate, @Query("end_date") final String endDate);
+
+	@GET("ibovespa")
+	Call<DefaultResponse<List<IbovespaInfo>>> getIbovespaDetail(@Query("key") final String key,
+			@Query("date") final String date);
+
 }

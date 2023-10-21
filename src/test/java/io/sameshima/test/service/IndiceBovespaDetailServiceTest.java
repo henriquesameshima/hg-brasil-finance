@@ -1,6 +1,7 @@
 package io.sameshima.test.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -35,14 +36,29 @@ class IndiceBovespaDetailServiceTest {
 		MockitoAnnotations.openMocks(this);
 		indiceBovespaDetailService = new IndiceBovespaDetailService(hgBrasilService, "");
 	}
-	@Test
-	void makeServiceCallWithNotNumberTest() {
-		when(hgBrasilService.getIbovespaDetail(anyString(), anyInt())).thenReturn(mockedCall);
 
-		Call<DefaultResponse<List<IbovespaInfo>>> result = indiceBovespaDetailService.makeServiceCall("");
+	@Test
+	void makeServiceCallWithIntervalDateTest() {
+		String startDate = "2023-03-01";
+		String endDate = "2023-03-02";
+
+		when(hgBrasilService.getIbovespaDetail(anyString(), anyString(), anyString())).thenReturn(mockedCall);
+
+		Call<DefaultResponse<List<IbovespaInfo>>> result = indiceBovespaDetailService.makeServiceCall(startDate, endDate);
 
 		assertEquals(mockedCall, result);
-	}	
+	}
+
+	@Test
+	void makeServiceCallWithDateTest() {
+		String date = "2023-03-01";
+
+		when(hgBrasilService.getIbovespaDetail(anyString(), anyString())).thenReturn(mockedCall);
+
+		Call<DefaultResponse<List<IbovespaInfo>>> result = indiceBovespaDetailService.makeServiceCall(date);
+
+		assertEquals(mockedCall, result);
+	}
 
 	@Test
 	void makeServiceCallWithDaysAgoTest() {
@@ -56,12 +72,11 @@ class IndiceBovespaDetailServiceTest {
 	}
 
 	@Test
-	void makeServiceCallWithoutDaysAgoTest() {
-
-		when(hgBrasilService.getIbovespaDetail(anyString(), anyInt())).thenReturn(mockedCall);
-
-		Call<DefaultResponse<List<IbovespaInfo>>> result = indiceBovespaDetailService.makeServiceCall();
-
-		assertEquals(mockedCall, result);
+	void makeServiceCallWrongParamsTest() {
+		assertThrows(IllegalArgumentException.class, () -> indiceBovespaDetailService.makeServiceCall());
+		assertThrows(IllegalArgumentException.class, () -> indiceBovespaDetailService.makeServiceCall("", 0));
+		assertThrows(IllegalArgumentException.class, () -> indiceBovespaDetailService.makeServiceCall(0, ""));
+		assertThrows(IllegalArgumentException.class, () -> indiceBovespaDetailService.makeServiceCall(0, 0));
+		assertThrows(IllegalArgumentException.class, () -> indiceBovespaDetailService.makeServiceCall(0f));
 	}
 }

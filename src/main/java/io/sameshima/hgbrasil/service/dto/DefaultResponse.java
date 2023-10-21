@@ -2,12 +2,12 @@ package io.sameshima.hgbrasil.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
 import lombok.Generated;
-import lombok.Getter;
 import lombok.ToString;
 
 @Generated
-public @Getter @ToString class DefaultResponse<T> {
+public @Data @ToString class DefaultResponse<T> {
 
 	@JsonProperty("by")
 	private String by;

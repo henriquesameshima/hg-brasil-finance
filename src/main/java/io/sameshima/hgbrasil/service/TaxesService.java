@@ -15,7 +15,7 @@ public final class TaxesService extends AbstractService<List<Taxes>> {
 	}
 
 	@Override
-	protected Call<DefaultResponse<List<Taxes>>> makeServiceCall(Object... params) {
+	public Call<DefaultResponse<List<Taxes>>> makeServiceCall(Object... params) {
 		return service.getBrazilianTaxes(chaveAPI);
 	}
 

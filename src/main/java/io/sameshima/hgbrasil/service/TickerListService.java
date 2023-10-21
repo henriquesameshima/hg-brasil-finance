@@ -14,7 +14,7 @@ public class TickerListService extends AbstractService<List<String>> {
 	}
 
 	@Override
-	protected Call<DefaultResponse<List<String>>> makeServiceCall(Object... params) {
+	public Call<DefaultResponse<List<String>>> makeServiceCall(Object... params) {
 		return service.getAllTickers(chaveAPI);
 	}
 

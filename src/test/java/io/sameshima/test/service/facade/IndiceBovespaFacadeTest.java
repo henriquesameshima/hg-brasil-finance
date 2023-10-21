@@ -1,6 +1,5 @@
 package io.sameshima.test.service.facade;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -45,6 +44,26 @@ class IndiceBovespaFacadeTest {
 	}
 
 	@Test
+	void testGetIbovespaDetailDate() throws SynchronousException {
+		DefaultResponse<List<IbovespaInfo>> response = new DefaultResponse<>();
+		when(detailService.fetchData("2023-03-01")).thenReturn(response);
+
+		DefaultResponse<List<IbovespaInfo>> result = facade.getIbovespaDetail("2023-03-01");
+
+		assertEquals(response, result);
+	}
+
+	@Test
+	void testGetIbovespaDetailIntervalDate() throws SynchronousException {
+		DefaultResponse<List<IbovespaInfo>> response = new DefaultResponse<>();
+		when(detailService.fetchData("2023-03-01", "2023-03-02")).thenReturn(response);
+
+		DefaultResponse<List<IbovespaInfo>> result = facade.getIbovespaDetail("2023-03-01", "2023-03-02");
+
+		assertEquals(response, result);
+	}
+
+	@Test
 	void testGetIbovespaDetailAsyncWithDaysAgo() {
 		doNothing().when(detailService).fetchDataAsync(null, 5);
 		facade.getIbovespaDetailAsync(5, null);
@@ -56,6 +75,20 @@ class IndiceBovespaFacadeTest {
 		doNothing().when(detailService).fetchDataAsync(null, 0);
 		facade.getIbovespaDetailAsync(null);
 		verify(detailService, times(1)).fetchDataAsync(null, 0);
+	}
+
+	@Test
+	void testGetIbovespaDetailAsyncWithDate() {
+		doNothing().when(detailService).fetchDataAsync(null, "2023-03-01");
+		facade.getIbovespaDetailAsync("2023-03-01", null);
+		verify(detailService, times(1)).fetchDataAsync(null, "2023-03-01");
+	}
+
+	@Test
+	void testGetIbovespaDetailAsyncWithIntervalDate() {
+		doNothing().when(detailService).fetchDataAsync(null, "2023-03-01", "2023-03-02");
+		facade.getIbovespaDetailAsync("2023-03-01", "2023-03-02", null);
+		verify(detailService, times(1)).fetchDataAsync(null, "2023-03-01", "2023-03-02");
 	}
 
 }

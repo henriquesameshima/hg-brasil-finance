@@ -2,7 +2,6 @@ package io.sameshima.hgbrasil.service.api;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +34,6 @@ public final class RetrofitClient {
 	}
 
 	public RetrofitClient(OkHttpClient.Builder okHttpClientBuilder) {
-		okHttpClientBuilder.callTimeout(30, TimeUnit.SECONDS);
 		retrofit = createRetrofit(okHttpClientBuilder);
 	}
 

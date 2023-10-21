@@ -18,6 +18,7 @@ class HGFinanceTest {
 		assertNotNull(hgFinance.getTaxesServices());
 		assertNotNull(hgFinance.getStockPricesServices());
 		assertNotNull(hgFinance.getStockDividendsServices());
+		assertNotNull(hgFinance.getIbovespaServices());
 	}
 
 	@Test
@@ -30,5 +31,6 @@ class HGFinanceTest {
 		assertNotNull(hgFinance.getTaxesServices());
 		assertNotNull(hgFinance.getStockPricesServices());
 		assertNotNull(hgFinance.getStockDividendsServices());
+		assertNotNull(hgFinance.getIbovespaServices());
 	}
 }

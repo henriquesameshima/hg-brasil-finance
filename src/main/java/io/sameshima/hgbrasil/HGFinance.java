@@ -1,5 +1,6 @@
 package io.sameshima.hgbrasil;
 
+import io.sameshima.hgbrasil.service.IndiceBovespaDetailService;
 import io.sameshima.hgbrasil.service.StockDividendsService;
 import io.sameshima.hgbrasil.service.StockPriceService;
 import io.sameshima.hgbrasil.service.TaxesService;
@@ -7,6 +8,7 @@ import io.sameshima.hgbrasil.service.TickerListService;
 import io.sameshima.hgbrasil.service.api.CacheConfig;
 import io.sameshima.hgbrasil.service.api.HGBrasilService;
 import io.sameshima.hgbrasil.service.api.RetrofitClient;
+import io.sameshima.hgbrasil.service.facades.IndiceBovespaFacade;
 import io.sameshima.hgbrasil.service.facades.StockDividendsFacade;
 import io.sameshima.hgbrasil.service.facades.StockPricesFacade;
 import io.sameshima.hgbrasil.service.facades.TaxesFacade;
@@ -24,6 +26,7 @@ public final class HGFinance {
 	private final TaxesFacade taxesFacade;
 	private final StockPricesFacade stockPricesFacade;
 	private final StockDividendsFacade stockDividendsFacade;
+	private final IndiceBovespaFacade indiceBovespaFacade;
 	private final RetrofitClient retrofitClient = new RetrofitClient();
 
 	/**
@@ -47,6 +50,7 @@ public final class HGFinance {
 		this.taxesFacade = new TaxesFacade(new TaxesService(service, chaveAPI));
 		this.stockPricesFacade = new StockPricesFacade(new StockPriceService(service, chaveAPI));
 		this.stockDividendsFacade = new StockDividendsFacade(new StockDividendsService(service, chaveAPI));
+		this.indiceBovespaFacade = new IndiceBovespaFacade(new IndiceBovespaDetailService(service, chaveAPI));
 	}
 
 	/**
@@ -83,5 +87,14 @@ public final class HGFinance {
 	 */
 	public StockDividendsFacade getStockDividendsServices() {
 		return stockDividendsFacade;
+	}
+	
+	/**
+	 * Gets the Ibovespa services.
+	 *
+	 * @return the ibovespa services
+	 */
+	public IndiceBovespaFacade getIbovespaServices() {
+		return indiceBovespaFacade;
 	}
 }

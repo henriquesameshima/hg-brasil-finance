@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.sameshima.hgbrasil.service.dto.DefaultResponse;
+import io.sameshima.hgbrasil.service.dto.ibovespa.IbovespaInfo;
 import io.sameshima.hgbrasil.service.dto.stocks.dividends.DividendsOrError;
 import io.sameshima.hgbrasil.service.dto.stocks.price.StockOrError;
 import io.sameshima.hgbrasil.service.dto.taxes.Taxes;
@@ -26,5 +27,8 @@ public interface HGBrasilService {
 	
 	@GET("ticker_list")
 	Call<DefaultResponse<List<String>>> getAllTickers(@Query("key") final String key);
+	
+	@GET("ibovespa")
+	Call<DefaultResponse<List<IbovespaInfo>>> getIbovespaDetail(@Query("key") final String key, @Query("days_ago") final Integer daysAgo);
 	
 }

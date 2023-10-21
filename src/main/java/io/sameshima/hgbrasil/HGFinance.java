@@ -24,6 +24,7 @@ public final class HGFinance {
 	private final TaxesFacade taxesFacade;
 	private final StockPricesFacade stockPricesFacade;
 	private final StockDividendsFacade stockDividendsFacade;
+	private final RetrofitClient retrofitClient = new RetrofitClient();
 
 	/**
 	 * Instantiates a new HG finance.
@@ -41,8 +42,7 @@ public final class HGFinance {
 	 * @param cacheConfig the cache config
 	 */
 	public HGFinance(final String chaveAPI, final CacheConfig cacheConfig) {
-		final HGBrasilService service = (cacheConfig != null) ? RetrofitClient.getApiService(cacheConfig)
-				: RetrofitClient.getApiService();
+		final HGBrasilService service = this.retrofitClient.getApiService(cacheConfig);
 		this.tickersFacade = new TickersFacade(new TickerListService(service, chaveAPI));
 		this.taxesFacade = new TaxesFacade(new TaxesService(service, chaveAPI));
 		this.stockPricesFacade = new StockPricesFacade(new StockPriceService(service, chaveAPI));

@@ -15,7 +15,7 @@ public class StockDividendsService extends AbstractService<Map<String, Dividends
 	}
 
 	@Override
-	protected Call<DefaultResponse<Map<String, DividendsOrError>>> makeServiceCall(Object... params) {
+	public Call<DefaultResponse<Map<String, DividendsOrError>>> makeServiceCall(Object... params) {
 		if (params.length > 0 && params[0] instanceof String) {
 			String symbol = (String) params[0];
 			return service.getStocksDividends(chaveAPI, symbol);

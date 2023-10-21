@@ -25,7 +25,7 @@ public class DeserializadorDefault<T> extends JsonDeserializer<Object> {
 		ObjectCodec oc = jp.getCodec();
 		JsonNode node = oc.readTree(jp);
 
-		if (node.has("error") && node.get("error").asBoolean()) {
+		if (node.has("error")) {
 			return oc.treeToValue(node, ErrorResponse.class);
 		} else if (node.isArray()) {
 			JavaType type = ctxt.getTypeFactory().constructCollectionType(List.class, defaultClass);
